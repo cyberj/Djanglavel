@@ -1,0 +1,12 @@
+# Put here all your python libs dependencies before vtenv.sh
+django < 1.9
+django-bootstrap-form
+werkzeug
+Markdown
+djangorestframework
+django-extensions >= 0.6
+django-debug-toolbar >= 0.8.5
+django-autoslug
+django-ignoretests2
+# https://code.djangoproject.com/ticket/16250
+#psycopg2==2.4.1 
