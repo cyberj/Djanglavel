@@ -1,0 +1,16 @@
+*.pyc
+*.nja
+*.pyo
+*~
+db.dat
+*.swp
+pip-*.gz
+vtenv
+eggs
+.project
+.pydevproject
+log/*
+djanglavel/local_settings.py
+/static/
+docs/_build/*
+sql/*
