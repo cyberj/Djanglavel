@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
+from .models import Question
 
 class PollsTests(TestCase):
 
@@ -8,4 +9,8 @@ class PollsTests(TestCase):
         """
         response = self.client.get(reverse('polls:index'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Hello, world. You're at the polls index.")
+        question_text = "Thats is the question"
+        self.assertNotContains(response, question_text)
+        Question.objects.create(question_text=question_text)
+        response = self.client.get(reverse('polls:index'))
+        self.assertContains(response, question_text)
