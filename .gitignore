@@ -14,3 +14,4 @@ djanglavel/local_settings.py
 /static/
 docs/_build/*
 sql/*
+__pycache__

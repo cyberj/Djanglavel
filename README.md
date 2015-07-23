@@ -5,6 +5,7 @@
 * Repository : https://github.com/cyberj/djanglavel.git
 * Tracker :
 * Django version : 1.8.3
+* Python version : 3.4
 
 This is just a personal test to compare [Laravel](http://laravel.com/) framework with [Django](http://djangoproject.com) framework
 
