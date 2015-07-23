@@ -17,6 +17,6 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^polls/', include('djanglavel.polls.urls', namespace="polls")),
+    # url(r'^notebook/', include('djanglavel.notebook.urls', namespace="notebook")),
     url(r'^admin/', include(admin.site.urls)),
 ]

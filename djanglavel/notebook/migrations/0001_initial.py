@@ -11,24 +11,20 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Choice',
+            name='Contact',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('choice_text', models.CharField(max_length=200)),
-                ('votes', models.IntegerField(default=0)),
+                ('first_name', models.CharField(max_length=200, verbose_name=b'Firstname')),
+                ('last_name', models.CharField(max_length=200, verbose_name=b'Lastname')),
+                ('birthday', models.DateTimeField(verbose_name=b'Birthday')),
             ],
         ),
         migrations.CreateModel(
-            name='Question',
+            name='Email',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('question_text', models.CharField(max_length=200)),
-                ('pub_date', models.DateTimeField(verbose_name=b'date published')),
+                ('email', models.EmailField(max_length=254)),
+                ('contact', models.ForeignKey(to='notebook.Contact')),
             ],
-        ),
-        migrations.AddField(
-            model_name='choice',
-            name='question',
-            field=models.ForeignKey(to='polls.Question'),
         ),
     ]
