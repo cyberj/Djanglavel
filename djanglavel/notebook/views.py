@@ -1,3 +1,10 @@
 from django.shortcuts import render
 
-# Create your views here.
+from .models import Contact
+
+# Old style views
+
+def index(request):
+    result = {}
+    result["contacts"] = Contact.objects.all()
+    return render(request, 'notebook/index.html', result)
