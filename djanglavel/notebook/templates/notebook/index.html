@@ -1,11 +1,19 @@
+{% extends "notebook/base.html" %}
+{% block title %}Contact list{% endblock title %}
+{% block content %}
 {% if contacts %}
+  <ul>
   {% for contact in contacts %}
-    <dl>
-        <dt>First name : </dt><dd>{{ contact.first_name }}</dd>
-        <dt>Last name : </dt><dd>{{ contact.last_name }}</dd>
-        <dt>Birthday : </dt><dd>{{ contact.birthday|date:"SHORT_DATE_FORMAT" }}</dd>
-    </dl>
+    <li>
+      <ul>
+        <li><strong>First name :</strong> {{ contact.first_name }}</li>
+        <li><strong>Last name :</strong> {{ contact.last_name }}</li>
+        <li><strong>Birthday :</strong> {{ contact.birthday|date:"SHORT_DATE_FORMAT" }}</li>
+      </ul>
+    </li>
   {% endfor %}
+  </ul>
 {% else %}
-    <p>No Contacts.</p>
+  <p>No Contacts.</p>
 {% endif %}
+{% endblock content %}
