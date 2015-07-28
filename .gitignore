@@ -5,7 +5,7 @@
 db.dat
 *.swp
 pip-*.gz
-vtenv
+vtenv*
 eggs
 .project
 .pydevproject
@@ -15,3 +15,4 @@ djanglavel/local_settings.py
 docs/_build/*
 sql/*
 __pycache__
+*.sqlite3
