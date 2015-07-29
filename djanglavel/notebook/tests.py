@@ -23,6 +23,25 @@ class NotebookTests(TestCase):
         self.assertContains(response, first_name)
         self.assertContains(response, last_name)
         self.assertContains(response, "01/01/2015")
+
+    def test_list_page(self):
+        """Test Class-Based View list
+        """
+        c1 = Contact.objects.create(first_name="Dave", last_name="Null",
+                                    birthday=date(2015, 1, 1))
+        c2 = Contact.objects.create(first_name="Foo", last_name="Bar",
+                                    birthday=date(2015, 1, 1))
+        c3 = Contact.objects.create(first_name="Hello", last_name="World",
+                                    birthday=date(2015, 1, 1))
+        response = self.client.get(reverse('notebook:list'))
+        self.assertContains(response, c1.get_full_name())
+        self.assertContains(response, c2.get_full_name())
+        self.assertContains(response, c3.get_full_name())
+
+    def test_detail_page(self):
+        """Test Class-Based View Detail
+        """
+        pass
 #
 #     def test_detail_page(self):
 #         """Simple test for detail page
