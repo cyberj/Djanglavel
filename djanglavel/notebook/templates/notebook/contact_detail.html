@@ -5,5 +5,12 @@
     <li><strong>First name :</strong> {{ contact.first_name }}</li>
     <li><strong>Last name :</strong> {{ contact.last_name }}</li>
     <li><strong>Birthday :</strong> {{ contact.birthday|date:"SHORT_DATE_FORMAT" }}</li>
+    {% if emails %}
+      <li><strong>Emails:</strong><ul>
+      {% for email in emails %}
+        <li>{{ email.email }}</li>
+      {% endfor %}
+      </ul></li>
+    {% endif %}
   </ul>
 {% endblock content %}

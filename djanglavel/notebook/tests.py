@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from .models import Contact
+from .models import Contact, Email
 from datetime import date
 
 
@@ -46,11 +46,15 @@ class NotebookTests(TestCase):
         self.assertEqual(response.status_code, 404)
         c1 = Contact.objects.create(first_name="Dave", last_name="Null",
                                     birthday=date(2015, 1, 1))
+        c1_e1 = Email.objects.create(contact=c1, email="davenull@42.com")
+        c1_e2 = Email.objects.create(contact=c1, email="daverandom@42.com")
         response = self.client.get(reverse('notebook:detail',
                                            kwargs={'slug': "dave-null"}))
         self.assertContains(response, c1.first_name)
         self.assertContains(response, c1.last_name)
         self.assertContains(response, "01/01/2015")
+        self.assertContains(response, c1_e1.email)
+        self.assertContains(response, c1_e2.email)
 
 #
 #     def test_detail_page(self):
