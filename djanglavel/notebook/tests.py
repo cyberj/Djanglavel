@@ -42,6 +42,12 @@ class NotebookTests(TestCase):
         self.assertContains(response, reverse('notebook:detail', args=[c1.slug]))
         self.assertContains(response, reverse('notebook:detail', args=[c2.slug]))
         self.assertContains(response, reverse('notebook:detail', args=[c3.slug]))
+        # Check for update button
+        self.assertContains(response, reverse('notebook:update', args=[c1.slug]))
+        # Check for delete button
+        self.assertContains(response, reverse('notebook:delete', args=[c1.slug]))
+        # Check for New button
+        self.assertContains(response, reverse('notebook:create'))
 
     def test_detail_page(self):
         """Test Class-Based View Detail

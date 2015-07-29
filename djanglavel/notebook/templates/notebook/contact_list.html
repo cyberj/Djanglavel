@@ -1,10 +1,23 @@
-{% extends "notebook/base.html" %}
+{% extends "notebook/base.html" %}{% load bootstrap3 %}
 {% block title %}Contact list{% endblock title %}
 {% block content %}
+<p>
+  <a href="{% url 'notebook:create' %}" class="btn btn-default">
+    <span class="glyphicon glyphicon-plus"></span>New contact
+  </a>
+</p>
 {% if contacts %}
   <ul>
   {% for contact in contacts %}
-    <li><a href="{% url 'notebook:detail' slug=contact.slug %}">{{ contact.get_full_name }}</a></li>
+    <li>
+      <a href="{% url 'notebook:update' slug=contact.slug %}" class="btn btn-warning">
+        <span class="glyphicon glyphicon-pencil"></span>
+      </a>
+      <a href="{% url 'notebook:delete' slug=contact.slug %}" class="btn btn-danger">
+        <span class="glyphicon glyphicon-trash"></span>
+      </a>
+      <a href="{% url 'notebook:detail' slug=contact.slug %}">{{ contact.get_full_name }}</a>
+    </li>
   {% endfor %}
   </ul>
 {% else %}
