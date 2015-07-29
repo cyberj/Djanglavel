@@ -1,0 +1,9 @@
+{% extends "notebook/base.html" %}
+{% block title %}Contact list{% endblock title %}
+{% block content %}
+  <ul>
+    <li><strong>First name :</strong> {{ contact.first_name }}</li>
+    <li><strong>Last name :</strong> {{ contact.last_name }}</li>
+    <li><strong>Birthday :</strong> {{ contact.birthday|date:"SHORT_DATE_FORMAT" }}</li>
+  </ul>
+{% endblock content %}

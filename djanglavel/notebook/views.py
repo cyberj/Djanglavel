@@ -19,7 +19,7 @@ class ContactListView(ListView):
     context_object_name = "contacts"
 
 
-class ContactListDetail(DetailView):
+class ContactDetailView(DetailView):
 
     model = Contact
     context_object_name = "contact"

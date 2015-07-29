@@ -41,7 +41,17 @@ class NotebookTests(TestCase):
     def test_detail_page(self):
         """Test Class-Based View Detail
         """
-        pass
+        response = self.client.get(reverse('notebook:detail',
+                                           kwargs={'slug': "dave-null"}))
+        self.assertEqual(response.status_code, 404)
+        c1 = Contact.objects.create(first_name="Dave", last_name="Null",
+                                    birthday=date(2015, 1, 1))
+        response = self.client.get(reverse('notebook:detail',
+                                           kwargs={'slug': "dave-null"}))
+        self.assertContains(response, c1.first_name)
+        self.assertContains(response, c1.last_name)
+        self.assertContains(response, "01/01/2015")
+
 #
 #     def test_detail_page(self):
 #         """Simple test for detail page
