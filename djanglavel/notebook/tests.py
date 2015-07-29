@@ -7,7 +7,7 @@ from datetime import date
 class NotebookTests(TestCase):
 
     def test_index_page(self):
-        """Simple test for index page
+        """Simple test for index page using old style views
         """
         first_name = "Dave"
         last_name = "Null"
