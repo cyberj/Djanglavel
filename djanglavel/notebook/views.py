@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView
 
 from .models import Contact
 
@@ -30,3 +31,15 @@ class ContactDetailView(DetailView):
         # Add in a QuerySet of all emails
         context['emails'] = self.object.email_set.all()
         return context
+
+
+class ContactCreateView(CreateView):
+
+    model = Contact
+    fields = ["first_name", "last_name", "birthday"]
+
+
+class ContactUpdateView(UpdateView):
+
+    model = Contact
+    fields = ["first_name", "last_name", "birthday"]

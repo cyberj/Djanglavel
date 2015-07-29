@@ -16,6 +16,11 @@ class Contact(models.Model):
 
     slug = AutoSlugField('Slug', unique=True, populate_from=get_full_name)
 
+    def get_absolute_url(self):
+        # Must import here to avoid circular imports
+        from django.core.urlresolvers import reverse
+        return reverse('notebook:detail', args=[self.slug])
+
 
 class Email(models.Model):
 

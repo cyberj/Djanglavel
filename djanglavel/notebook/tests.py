@@ -46,13 +46,16 @@ class NotebookTests(TestCase):
     def test_detail_page(self):
         """Test Class-Based View Detail
         """
+        # Try with empty data
         response = self.client.get(reverse('notebook:detail',
                                            kwargs={'slug': "dave-null"}))
         self.assertEqual(response.status_code, 404)
+        # Create Dave
         c1 = Contact.objects.create(first_name="Dave", last_name="Null",
                                     birthday=date(2015, 1, 1))
         c1_e1 = Email.objects.create(contact=c1, email="davenull@42.com")
         c1_e2 = Email.objects.create(contact=c1, email="daverandom@42.com")
+        # Get details
         response = self.client.get(reverse('notebook:detail',
                                            kwargs={'slug': "dave-null"}))
         self.assertContains(response, c1.first_name)
@@ -60,3 +63,44 @@ class NotebookTests(TestCase):
         self.assertContains(response, "01/01/2015")
         self.assertContains(response, c1_e1.email)
         self.assertContains(response, c1_e2.email)
+
+    def test_create_form(self):
+        """Test Class-based View Create
+        """
+        # Spawn create view
+        response = self.client.get(reverse('notebook:create'))
+        self.assertEqual(response.status_code, 200)
+        payload = {
+            'first_name': "Dave",
+            'last_name': "Null",
+            'birthday': "2015-01-01"
+        }
+        # Post in create view
+        response = self.client.post(reverse('notebook:create'), payload)
+        # All good, redirecting
+        self.assertRedirects(response, reverse('notebook:detail', args=['dave-null']))
+        # Should get it in DB
+        cc = Contact.objects.get(slug="dave-null")
+        self.assertEquals(cc.birthday, date(2015, 1, 1))
+
+    def test_update_form(self):
+        """Test Class-based View Update
+        """
+        # Create and get form
+        c1 = Contact.objects.create(first_name="Dave", last_name="Null",
+                                    birthday=date(2015, 1, 1))
+        dave_update_url = reverse("notebook:update", kwargs={"slug": c1.slug})
+        response = self.client.get(dave_update_url)
+        self.assertEqual(response.status_code, 200)
+        # Modify form
+        payload = {
+            'first_name': "Dave",
+            'last_name': "Random",
+            'birthday': "2015-02-02"
+        }
+        response = self.client.post(dave_update_url, payload)
+        # Profit
+        c1 = Contact.objects.get(id=c1.id)
+        self.assertRedirects(response, reverse('notebook:detail', args=['dave-null']))
+        self.assertEqual(c1.birthday, date(2015, 2, 2))
+        self.assertEqual(c1.last_name, "Random")
