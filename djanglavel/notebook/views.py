@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.core.urlresolvers import reverse_lazy
+
 
 from .models import Contact
 
@@ -12,6 +14,8 @@ def index(request):
     result = {}
     result["contacts"] = Contact.objects.all()
     return render(request, 'notebook/index.html', result)
+
+# Class based views : Easy to write, easy to tweak.
 
 
 class ContactListView(ListView):
@@ -43,3 +47,9 @@ class ContactUpdateView(UpdateView):
 
     model = Contact
     fields = ["first_name", "last_name", "birthday"]
+
+
+class ContactDeleteView(DeleteView):
+
+    model = Contact
+    success_url = reverse_lazy("notebook:list")

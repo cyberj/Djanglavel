@@ -104,3 +104,17 @@ class NotebookTests(TestCase):
         self.assertRedirects(response, reverse('notebook:detail', args=['dave-null']))
         self.assertEqual(c1.birthday, date(2015, 2, 2))
         self.assertEqual(c1.last_name, "Random")
+
+    def test_delete_view(self):
+        """Test Class-based Delete view
+        """
+        # Create and get form
+        c1 = Contact.objects.create(first_name="Dave", last_name="Null",
+                                    birthday=date(2015, 1, 1))
+        dave_delete_url = reverse("notebook:delete", kwargs={"slug": c1.slug})
+        response = self.client.get(dave_delete_url)
+        self.assertEqual(response.status_code, 200)
+        response = self.client.post(dave_delete_url)
+        # Profit
+        self.assertRedirects(response, reverse('notebook:list'))
+        self.assertFalse(Contact.objects.filter(id=c1.id).exists())
