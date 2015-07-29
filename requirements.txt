@@ -1,6 +1,6 @@
 # Put here all your python libs dependencies before vtenv.sh
 django < 1.9
-django-bootstrap-form
+django-bootstrap3
 werkzeug
 Markdown
 djangorestframework
