@@ -34,9 +34,14 @@ class NotebookTests(TestCase):
         c3 = Contact.objects.create(first_name="Hello", last_name="World",
                                     birthday=date(2015, 1, 1))
         response = self.client.get(reverse('notebook:list'))
+        # Check for names
         self.assertContains(response, c1.get_full_name())
         self.assertContains(response, c2.get_full_name())
         self.assertContains(response, c3.get_full_name())
+        # Check for detail link
+        self.assertContains(response, reverse('notebook:detail', args=[c1.slug]))
+        self.assertContains(response, reverse('notebook:detail', args=[c2.slug]))
+        self.assertContains(response, reverse('notebook:detail', args=[c3.slug]))
 
     def test_detail_page(self):
         """Test Class-Based View Detail

@@ -4,7 +4,7 @@
 {% if contacts %}
   <ul>
   {% for contact in contacts %}
-    <li><a href="#">{{ contact.get_full_name }}</a></li>
+    <li><a href="{% url 'notebook:detail' slug=contact.slug %}">{{ contact.get_full_name }}</a></li>
   {% endfor %}
   </ul>
 {% else %}
